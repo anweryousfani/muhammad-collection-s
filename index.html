@@ -3,201 +3,251 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muhammad Collections | Order Portal</title>
+    <title>Muhammad Collections | Luxury Portal</title>
     
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; padding: 20px; display: flex; justify-content: center; }
-        .card { width: 100%; max-width: 480px; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        .logo-container { text-align: center; margin-bottom: 20px; }
-        .logo-container img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid #333; }
-        h2 { text-align: center; color: #1a1a1a; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
-        .hidden { display: none; }
-        label { display: block; margin-top: 15px; font-weight: 600; color: #444; }
-        input, select { width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 1em; }
-        
-        .btn { width: 100%; background: #075E54; color: white; padding: 16px; border: none; border-radius: 8px; font-size: 1.1em; cursor: pointer; margin-top: 15px; font-weight: bold; transition: 0.3s; }
-        .btn:hover { background: #128C7E; }
-        .btn-download { background: #333; margin-top: 10px; }
+        :root {
+            --gold: #d4af37;
+            --dark-bg: #0f0f0f;
+            --glass: rgba(255, 255, 255, 0.05);
+        }
 
-        /* Slip Styling */
-        #orderSlip { border: 2px solid #333; padding: 25px; background: #fff; margin-top: 10px; position: relative; }
-        .slip-header { text-align: center; border-bottom: 2px solid #333; margin-bottom: 15px; padding-bottom: 10px; }
-        .slip-row { display: flex; justify-content: space-between; margin: 8px 0; font-size: 0.95em; }
-        .total-box { background: #f9f9f9; padding: 12px; border-top: 2px solid #333; margin-top: 10px; font-weight: bold; font-size: 1.15em; }
-        .verified-stamp { color: #27ae60; font-weight: bold; text-align: center; border: 2px solid #27ae60; width: fit-content; margin: 5px auto; padding: 5px 15px; transform: rotate(-5deg); text-transform: uppercase; font-size: 1.2em; }
+        body {
+            background: radial-gradient(circle at top, #1a1a1a, #000);
+            color: #fff;
+            font-family: 'Cinzel', serif; /* Elegant Serif Font */
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .main-wrapper {
+            width: 100%;
+            max-width: 450px;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 30px;
+            padding: 40px 20px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+
+        .logo-box {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-box img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            padding: 5px;
+            box-shadow: 0 0 15px var(--gold);
+        }
+
+        h2 {
+            color: var(--gold);
+            text-align: center;
+            letter-spacing: 4px;
+            font-size: 1.4em;
+            margin: 10px 0;
+        }
+
+        /* Unique Input Styling */
+        .input-group { margin-bottom: 20px; }
+        label { font-size: 0.75em; color: var(--gold); letter-spacing: 2px; margin-bottom: 8px; display: block; }
         
-        .policy-box { font-size: 0.75em; color: #555; background: #fff8e1; padding: 15px; border-radius: 8px; margin-top: 20px; line-height: 1.5; border-left: 4px solid #ffc107; }
-        .screenshot-note { text-align: center; font-weight: bold; color: #d32f2f; margin-top: 10px; font-size: 0.9em; }
+        input, select {
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            border: none;
+            border-bottom: 1px solid #444;
+            padding: 12px;
+            color: white;
+            font-size: 1em;
+            transition: 0.4s;
+        }
+
+        input:focus { outline: none; border-bottom: 1px solid var(--gold); background: rgba(255,255,255,0.1); }
+
+        /* Elegant Buttons */
+        .btn-gold {
+            background: linear-gradient(45deg, #b8860b, #ffd700);
+            color: #000;
+            border: none;
+            padding: 18px;
+            border-radius: 50px;
+            width: 100%;
+            font-weight: 800;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-top: 25px;
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Luxury Slip Styling */
+        #orderSlip {
+            background: #fff;
+            color: #000;
+            padding: 30px;
+            border-radius: 5px;
+            position: relative;
+        }
+        
+        .slip-border { border: 1px solid #000; padding: 10px; }
+        .watermark { position: absolute; top: 40%; left: 10%; font-size: 3em; color: rgba(0,0,0,0.05); transform: rotate(-20deg); }
+
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <div class="logo-container">
-        <img src="https://i.postimg.cc/tJ94S8rT/logo.jpg" alt="Muhammad Collections Logo">
+<div class="main-wrapper">
+    <div class="logo-box">
+        <img src="https://i.postimg.cc/tJ94S8rT/logo.jpg" alt="Logo">
+        <h2>MUHAMMAD<br>COLLECTIONS</h2>
     </div>
 
-    <div id="formSection">
-        <h2>Muhammad Collections</h2>
-        <p style="text-align:center; color:#666; font-size: 0.85em; margin-top: 0;">Premium Malai Boski Order Portal</p>
+    <div id="formView">
+        <div class="input-group">
+            <label>CLIENT NAME</label>
+            <input type="text" id="name" placeholder="John Doe">
+        </div>
 
-        <label>Full Name</label>
-        <input type="text" id="name" placeholder="Enter your name" required>
+        <div class="input-group">
+            <label>FABRIC SELECTION</label>
+            <select id="color">
+                <option>Black Gul Ahmed</option>
+                <option>Navy Blue Boski</option>
+                <option>Seafoam Green Boski</option>
+                <option>Beige Boski</option>
+                <option>Cream/Classic Boski</option>
+            </select>
+        </div>
 
-        <label>Select Color</label>
-        <select id="color">
-            <option>Black Gul Ahmed</option>
-            <option>Navy Blue Boski</option>
-            <option>Seafoam Green Boski</option>
-            <option>Beige Boski</option>
-            <option>Cream/Classic Boski</option>
-        </select>
-
-        <div style="display: flex; gap: 10px;">
+        <div style="display: flex; gap: 15px;">
             <div style="flex: 2;">
-                <label>Suit Length</label>
+                <label>CUTTING (METERS)</label>
                 <select id="length">
-                    <option value="4.0" data-price="2400">4.0 Meters (2,400 PKR)</option>
-                    <option value="4.5" data-price="2600" selected>4.5 Meters (2,600 PKR)</option>
-                    <option value="5.0" data-price="2800">5.0 Meters (2,800 PKR)</option>
+                    <option value="4.0" data-price="2400">4.0m (Standard)</option>
+                    <option value="4.5" data-price="2600" selected>4.5m (Large)</option>
+                    <option value="5.0" data-price="2800">5.0m (XL)</option>
                 </select>
             </div>
             <div style="flex: 1;">
-                <label>Quantity</label>
+                <label>QTY</label>
                 <input type="number" id="qty" value="1" min="1">
             </div>
         </div>
 
-        <label>Shipping Address</label>
-        <input type="text" id="address" placeholder="City, Area, House No." required>
+        <div class="input-group">
+            <label>DESTINATION ADDRESS</label>
+            <input type="text" id="address" placeholder="City, Area, House">
+        </div>
 
-        <label>Promo Code</label>
-        <input type="text" id="promo" placeholder="Enter code (if any)">
+        <div class="input-group">
+            <label>PRIVATE PROMO CODE</label>
+            <input type="text" id="promo" placeholder="Enter Code">
+        </div>
 
-        <button type="button" class="btn" onclick="processOrder()">GENERATE ORDER SLIP</button>
+        <button class="btn-gold" onclick="processOrder()">REQUEST INVOICE</button>
     </div>
 
-    <div id="slipSection" class="hidden">
-        <div id="captureArea">
+    <div id="slipView" class="hidden">
+        <div id="captureArea" style="padding: 10px; background: #000;">
             <div id="orderSlip">
-                <div class="slip-header">
-                    <h3 style="margin:0;">MUHAMMAD COLLECTIONS</h3>
-                    <p style="margin:5px 0; font-size: 0.8em;">Official Digital Invoice</p>
-                    <small>Order ID: <span id="slipID"></span></small>
+                <div class="watermark">MUHAMMAD</div>
+                <center>
+                    <h4 style="margin:0; letter-spacing: 2px;">CERTIFIED INVOICE</h4>
+                    <small>REF: <span id="slipID"></span></small>
+                </center>
+                <hr>
+                <p><strong>Customer:</strong> <span id="resName"></span></p>
+                <p><strong>Fabric:</strong> <span id="resColor"></span> (<span id="resLen"></span>)</p>
+                <p><strong>Quantity:</strong> <span id="resQty"></span></p>
+                <div style="background: #f0f0f0; padding: 15px; margin-top: 20px;">
+                    <h3 style="margin:0; text-align: center;">TOTAL: <span id="resTotal"></span></h3>
                 </div>
-                
-                <div class="verified-stamp">ORDER READY</div>
-
-                <div class="slip-row"><span>Customer:</span> <strong id="slipName"></strong></div>
-                <div class="slip-row"><span>Fabric:</span> <span id="slipColor"></span></div>
-                <div class="slip-row"><span>Cutting:</span> <span id="slipLength"></span></div>
-                <div class="slip-row"><span>Quantity:</span> <span id="slipQty"></span></div>
-                <div class="slip-row"><span>Promo:</span> <span id="slipPromo"></span></div>
-                <div class="slip-row"><span>Delivery:</span> <span style="color:green;">FREE SHIPPING</span></div>
-
-                <div class="total-box">
-                    <div class="slip-row" style="margin:0;"><span>TOTAL BILL:</span> <span id="slipTotal"></span></div>
-                </div>
-                
-                <p style="font-size: 0.6em; text-align: center; margin-top: 15px; color: #888;">Thank you for shopping with Muhammad Collections!</p>
             </div>
         </div>
 
-        <p class="screenshot-note">📸 Please Screenshot or Download this slip!</p>
+        <button class="btn-gold" onclick="downloadSlip()" style="background: #333; color: #fff;">DOWNLOAD SLIP</button>
+        <button class="btn-gold" onclick="sendToWhatsApp()">CONFIRM ON WHATSAPP</button>
         
-        <button class="btn btn-download" onclick="downloadSlip()">DOWNLOAD SLIP IMAGE</button>
-        <button class="btn" onclick="sendToWhatsApp()" style="background:#25D366;">SEND VIA WHATSAPP</button>
-        
-        <div class="policy-box">
-            <strong>Terms & Conditions:</strong><br>
-            🔄 <strong>3-Day Exchange:</strong> If the shade isn't perfect, exchange within 3 days. Fabric must be unstitched.<br>
-            🚚 <strong>Exchange Fee:</strong> 135 PKR delivery charges apply for exchange orders.<br>
-            ❌ <strong>No Refunds:</strong> Strictly no returns or cash refunds.
-        </div>
+        <p style="font-size: 0.7em; text-align: center; color: var(--gold); margin-top: 20px;">
+            🔄 3-Day Exchange Policy applies. Fee: 135 PKR.
+        </p>
     </div>
 </div>
 
 <script>
-    // --- CONFIGURATION ---
-    const PUBLIC_KEY = "qLN3VE09GqCkYt_pT";
-    const SERVICE_ID = "service_oftxa1f";
-    const TEMPLATE_ID = "template_mar3ztq";
-    const MY_PHONE = "923172582336"; 
+    const CONFIG = {
+        PUBLIC_KEY: "qLN3VE09GqCkYt_pT",
+        SERVICE_ID: "service_oftxa1f",
+        TEMPLATE_ID: "template_mar3ztq",
+        PHONE: "923172582336"
+    };
 
-    (function() { emailjs.init(PUBLIC_KEY); })();
+    (function() { emailjs.init(CONFIG.PUBLIC_KEY); })();
 
     function processOrder() {
         const name = document.getElementById('name').value;
-        const address = document.getElementById('address').value;
+        const addr = document.getElementById('address').value;
         const qty = parseInt(document.getElementById('qty').value);
 
-        if(!name || !address || qty < 1) {
-            alert("Please complete all fields correctly.");
-            return;
-        }
+        if(!name || !addr) { alert("Details missing!"); return; }
 
         const lenEl = document.getElementById('length');
-        const basePrice = parseInt(lenEl.options[lenEl.selectedIndex].getAttribute('data-price'));
+        const base = parseInt(lenEl.options[lenEl.selectedIndex].getAttribute('data-price'));
         const promo = document.getElementById('promo').value;
         
         const validCodes = ["19081", "19161", "19129", "19009", "19067"];
-        const unitPrice = (promo && validCodes.includes(promo)) ? (basePrice - 600) : basePrice;
-        const totalBill = unitPrice * qty;
+        const price = (validCodes.includes(promo)) ? (base - 600) : base;
+        const total = price * qty;
 
-        // Fill Slip
-        document.getElementById('slipID').innerText = 'MC-' + Math.floor(1000 + Math.random() * 9000);
-        document.getElementById('slipName').innerText = name;
-        document.getElementById('slipColor').innerText = document.getElementById('color').value;
-        document.getElementById('slipLength').innerText = lenEl.value + " Meters";
-        document.getElementById('slipQty').innerText = qty;
-        document.getElementById('slipPromo').innerText = (validCodes.includes(promo)) ? promo : "None";
-        document.getElementById('slipTotal').innerText = totalBill.toLocaleString() + " PKR";
+        document.getElementById('slipID').innerText = 'MC-' + Math.floor(Math.random()*9000);
+        document.getElementById('resName').innerText = name;
+        document.getElementById('resColor').innerText = document.getElementById('color').value;
+        document.getElementById('resLen').innerText = lenEl.value + 'm';
+        document.getElementById('resQty').innerText = qty;
+        document.getElementById('resTotal').innerText = total.toLocaleString() + ' PKR';
 
-        // Toggle View
-        document.getElementById('formSection').classList.add('hidden');
-        document.getElementById('slipSection').classList.remove('hidden');
-        window.scrollTo(0, 0);
+        document.getElementById('formView').classList.add('hidden');
+        document.getElementById('slipView').classList.remove('hidden');
     }
 
     function downloadSlip() {
-        const element = document.getElementById('captureArea');
-        html2canvas(element).then(canvas => {
+        html2canvas(document.getElementById('captureArea')).then(canvas => {
             const link = document.createElement('a');
-            link.download = 'Muhammad-Collections-Slip.png';
+            link.download = 'Muhammad-Collection-Slip.png';
             link.href = canvas.toDataURL();
             link.click();
         });
     }
 
     function sendToWhatsApp() {
-        const id = document.getElementById('slipID').innerText;
-        const name = document.getElementById('slipName').innerText;
-        const total = document.getElementById('slipTotal').innerText;
-        const address = document.getElementById('address').value;
-
-        // Email Backup
-        emailjs.send(SERVICE_ID, TEMPLATE_ID, {
-            order_id: id,
-            customer_name: name,
-            customer_address: address,
+        const orderId = document.getElementById('slipID').innerText;
+        const total = document.getElementById('resTotal').innerText;
+        
+        emailjs.send(CONFIG.SERVICE_ID, CONFIG.TEMPLATE_ID, {
+            order_id: orderId,
+            customer_name: document.getElementById('resName').innerText,
+            customer_address: document.getElementById('address').value,
+            fabric_color: document.getElementById('resColor').innerText,
+            cutting: document.getElementById('resLen').innerText,
+            quantity: document.getElementById('resQty').innerText,
             final_bill: total
         });
 
-        // WhatsApp Text
-        const message = `*NEW ORDER: ${id}*%0A` +
-                        `--------------------------%0A` +
-                        `*Customer:* ${name}%0A` +
-                        `*Color:* ${document.getElementById('slipColor').innerText}%0A` +
-                        `*Qty:* ${document.getElementById('slipQty').innerText}%0A` +
-                        `*Address:* ${address}%0A` +
-                        `*Total:* ${total}%0A` +
-                        `--------------------------%0A` +
-                        `Slip has been saved. Please confirm my order!`;
-
-        window.open(`https://wa.me/${MY_PHONE}?text=${message}`, '_blank');
+        const text = `*Luxury Order Request: ${orderId}*%0A` +
+                     `Total: ${total}%0A` +
+                     `Confirming order from boutique portal.`;
+        window.open(`https://wa.me/${CONFIG.PHONE}?text=${text}`, '_blank');
     }
 </script>
 
